@@ -132,6 +132,7 @@ namespace WSolver
                 // when have new operation, process delayed operations
                 this.ProcessSuspended(s);
                 // and delay this operation
+                // и откладываем только что встреченную операцию
                 this.st.Push(s);
             }
             else

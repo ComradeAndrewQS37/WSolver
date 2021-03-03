@@ -43,6 +43,7 @@ namespace WSolver
             this.Equation_label.TabIndex = 0;
             this.Equation_label.Text = "Equation";
             this.Equation_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Equation_label.Click += new System.EventHandler(this.label1_Click);
             // 
             // listBox1
             // 
@@ -54,6 +55,7 @@ namespace WSolver
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(323, 424);
             this.listBox1.TabIndex = 1;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // RootsOutput
             // 

@@ -6,5 +6,5 @@ The whole process in a nutshell:
 3. Equation f(x) = 0 is solved using various ways, listed further
 
 ### Roots search methods:
-* [Dichotomy](https://github.com/ComradeAndrewQS37/WSolver/blob/master/WSolver/Dichotomy.cs)
+* [Dichotomy](WSolver/Dichotomy.cs)
 

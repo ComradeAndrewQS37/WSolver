@@ -34,19 +34,21 @@ namespace WSolver
             this.label1 = new System.Windows.Forms.Label();
             this.variableBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.checkBoxDichotomy = new System.Windows.Forms.CheckBox();
+            this.checkBoxCloseRoots = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // solveButton
             // 
             this.solveButton.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.solveButton.Location = new System.Drawing.Point(531, 104);
+            this.solveButton.Location = new System.Drawing.Point(542, 137);
             this.solveButton.Name = "solveButton";
             this.solveButton.Size = new System.Drawing.Size(259, 55);
             this.solveButton.TabIndex = 1;
             this.solveButton.Text = "Решить";
             this.solveButton.UseMnemonic = false;
             this.solveButton.UseVisualStyleBackColor = false;
-            this.solveButton.Click += new System.EventHandler(this.solveButton_Click);
+            this.solveButton.Click += new System.EventHandler(this.SolveButtonClick);
             // 
             // equationBox
             // 
@@ -84,9 +86,31 @@ namespace WSolver
             this.label2.TabIndex = 5;
             this.label2.Text = "Введите уравнение";
             // 
+            // checkBoxDichotomy
+            // 
+            this.checkBoxDichotomy.AutoSize = true;
+            this.checkBoxDichotomy.Location = new System.Drawing.Point(62, 104);
+            this.checkBoxDichotomy.Name = "checkBoxDichotomy";
+            this.checkBoxDichotomy.Size = new System.Drawing.Size(103, 21);
+            this.checkBoxDichotomy.TabIndex = 6;
+            this.checkBoxDichotomy.Text = "Дихотомия";
+            this.checkBoxDichotomy.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxCloseRoots
+            // 
+            this.checkBoxCloseRoots.AutoSize = true;
+            this.checkBoxCloseRoots.Location = new System.Drawing.Point(632, 110);
+            this.checkBoxCloseRoots.Name = "checkBoxCloseRoots";
+            this.checkBoxCloseRoots.Size = new System.Drawing.Size(169, 21);
+            this.checkBoxCloseRoots.TabIndex = 7;
+            this.checkBoxCloseRoots.Text = "Закрыть другие окна";
+            this.checkBoxCloseRoots.UseVisualStyleBackColor = true;
+            // 
             // InputForm
             // 
-            this.ClientSize = new System.Drawing.Size(804, 170);
+            this.ClientSize = new System.Drawing.Size(813, 204);
+            this.Controls.Add(this.checkBoxCloseRoots);
+            this.Controls.Add(this.checkBoxDichotomy);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.variableBox);
             this.Controls.Add(this.label1);
@@ -100,12 +124,12 @@ namespace WSolver
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button solveButton;
         private System.Windows.Forms.TextBox equationBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox variableBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBoxDichotomy;
+        private System.Windows.Forms.CheckBox checkBoxCloseRoots;
     }
 }

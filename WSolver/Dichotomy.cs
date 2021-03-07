@@ -13,17 +13,17 @@ namespace WSolver
      */
     class Dichotomy
     {
+        public static System.Random Rand = new Random();
         // all found roots
         public static List<double> roots = new List<double>();
         public static List<double> MainSolver(Func<double, double> f)
         {
             roots = new List<double>();
-            double a_default = -100, b_default = 101;
+            double a_default = -Rand.Next(100,200), b_default = Rand.Next(100, 200);
             double a, b;
             double eps = 0.00000001; // roots precision 
-            bool no_more_roots = false;
-            int root_repeat = 0;
-            while (!no_more_roots)
+            int rootRepeat = 0;
+            while (true)
             {
                 // roots are searched on [a,b]
                 a = a_default;
@@ -48,43 +48,42 @@ namespace WSolver
                     }
                     else
                     {
-                        no_more_roots = true;
                         break;
                     }
                 }
-                if (!no_more_roots)
+                
+
+                double new_root = (a + b) / 2;
+
+                if (CheckRoot(f, new_root) && !roots.Contains(Math.Round(new_root, 2)))
                 {
-                    double new_root = (a + b) / 2;
-
-
-                    if (CheckRoot(f, new_root) && !roots.Contains(new_root))
-                    {
-                        root_repeat = 0;
-                        roots.Add(Math.Round(new_root, 2));
-                    }
-                    else
-                    {
-                        root_repeat++;
-                    }
-
-                    if (root_repeat > 100)
-                    {
-                        return roots;
-                    }
-                    
+                    rootRepeat = 0;
+                    roots.Add(Math.Round(new_root,2));
                     // new function f(x):=f(x)/(x-x_0)
                     f = FunctionModifier(f, new_root);
                 }
-                
+                else
+                {
+                    rootRepeat++;
+
+                    a_default += Rand.Next(100, 500);
+                    b_default -= Rand.Next(100, 500);
+                }
+
+                if (rootRepeat > 100 || roots.Count > 50)
+                {
+                    return roots;
+                }
+
             }
             return roots;
         }
 
         static bool CheckRoot(Func<double, double> f, double x)
         {
-            double eps = 0.001;
-            bool is_root = Math.Abs(f(x)) < eps;
-            return is_root;
+            double eps = 0.00001;
+            bool isRoot = Math.Abs(f(x)) < eps;
+            return isRoot;
         }
 
         static double Derivative(Func<double, double> f, double x)

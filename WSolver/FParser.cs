@@ -18,7 +18,7 @@ namespace WSolver
     class FParser
     {
         // all processed operations
-        static readonly string[] Operators = { "+", "-", "/", "*", "^", "sin", "cos", "tg", "ctg", "ln", "lg", "log" };
+        static string[] Operators = { "+", "-", "/", "*", "^", "sin", "cos", "tg", "ctg", "ln", "lg", "log", "sqrt" };
         // stack only for brackets and operators
         Stack<string> st = new Stack<string>();
         //splitted reverse polish notation
@@ -132,7 +132,6 @@ namespace WSolver
                 // when have new operation, process delayed operations
                 this.ProcessSuspended(s);
                 // and delay this operation
-                // и откладываем только что встреченную операцию
                 this.st.Push(s);
             }
             else

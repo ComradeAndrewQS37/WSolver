@@ -32,7 +32,7 @@ namespace WSolver
             };
 
             // all unary operators and their functions
-            string[] unOpArr = { "sin", "cos", "tg", "ctg", "ln", "lg" };
+            string[] unOpArr = { "sin", "cos", "tg", "ctg", "ln", "lg", "sqrt" };
             Dictionary<string, Func<Func<double, double>, Func<double, double>>> unOpDict = new Dictionary<string, Func<Func<double, double>, Func<double, double>>>()
             {
                 {"sin", Sin },
@@ -40,7 +40,8 @@ namespace WSolver
                 {"tg", Tan },
                 {"ctg", Cot },
                 {"ln", Ln},
-                {"lg", Lg }
+                {"lg", Lg },
+                {"sqrt", Sqrt }
             };
 
             Stack<Func<double, double>> funcStack = new Stack<Func<double, double>>();
@@ -187,6 +188,10 @@ namespace WSolver
         public static Func<double, double> Log(Func<double, double> s1, Func<double, double> s2)
         {
             return (x) => (Math.Log(s2(x)) / Math.Log(s1(x)));
+        }
+        public static Func<double, double> Sqrt(Func<double, double> s1)
+        {
+            return (x) => (Math.Sqrt(s1(x)));
         }
 
     }

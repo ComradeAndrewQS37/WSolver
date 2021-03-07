@@ -6,4 +6,4 @@ The whole process in a nutshell:
 3. Equation f(x) = 0 is solved using various ways, described further
 
 ### Dichotomy (WSolver/WSolver/FParser.cs)
-[click on me](FParser.cs)
+[click on me](WSolver/blob/master/WSolver/FParser.cs)

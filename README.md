@@ -5,4 +5,4 @@ The whole process in a nutshell:
 2. This formula is parsed and transformed into function f(x)
 3. Equation f(x) = 0 is solved using various ways, described further
 
-### Dichotomy(https://www.google.com)
+### Dichotomy(../WSolver/FParser.cs)

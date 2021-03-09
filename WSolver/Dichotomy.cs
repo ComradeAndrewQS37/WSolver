@@ -22,7 +22,7 @@ namespace WSolver
             double a_default = -Rand.Next(100,200), b_default = Rand.Next(100, 200);
             double a, b;
             double eps = 0.00000001; // roots precision 
-            int rootRepeat = 0;
+            int badRoot = 0;
             while (true)
             {
                 // roots are searched on [a,b]
@@ -57,20 +57,20 @@ namespace WSolver
 
                 if (CheckRoot(f, new_root) && !roots.Contains(Math.Round(new_root, 2)))
                 {
-                    rootRepeat = 0;
+                    badRoot = 0;
                     roots.Add(Math.Round(new_root,2));
                     // new function f(x):=f(x)/(x-x_0)
                     f = FunctionModifier(f, new_root);
                 }
                 else
                 {
-                    rootRepeat++;
+                    badRoot++;
 
-                    a_default += Rand.Next(100, 500);
-                    b_default -= Rand.Next(100, 500);
+                    a_default -= Rand.Next(100, 500);
+                    b_default += Rand.Next(100, 500);
                 }
 
-                if (rootRepeat > 100 || roots.Count > 50)
+                if (badRoot > 100 || roots.Count > 50)
                 {
                     return roots;
                 }

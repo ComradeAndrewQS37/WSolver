@@ -6,5 +6,8 @@ The whole process:
 3. Equation f(x) = 0 is solved using various ways, listed further
 
 ### Root-finding methods:
-* [Bisection (dichotomy)](WSolver/Dichotomy.cs)
+* Bisection (dichotomy)
+* * [Searching roots on one big segment](WSolver/Dichotomy.cs)
+* * [Searching roots on segment divided into many little parts](WSolver/SmallSegments.cs) 
+* [Secant Method](WSolver/Secant.cs)
 

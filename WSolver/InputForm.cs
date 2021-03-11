@@ -18,12 +18,14 @@ namespace WSolver
             InitializeComponent();
             this.Text = "WSolver";
             this.MinimumSize = new Size(710, 280);
-            var directoryInfo = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent;
-            if (directoryInfo != null)
+
+            // setting an icon for window
+            var icoDirectory = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent?.FullName;
+            if (icoDirectory != null)
             {
-                string icoDirectory = directoryInfo.FullName;
-                this.Icon = new Icon(icoDirectory+"\\ex.ico");
+                this.Icon = new Icon(icoDirectory + "\\ex.ico");
             }
+
         }
 
         
@@ -41,11 +43,9 @@ namespace WSolver
             bool checkNew2 = checkBox2.Checked;
             bool checkNew3 = checkBox3.Checked;
 
-
-
             bool[] checkArray = {closeAll, checkDichotomy, checkSmallSegments, checkNewton, checkSecant, checkNew1, checkNew2, checkNew3 };
-
             
+
             // manages all solution processes
             Solver.SolutionManager(formula, usedVariable, checkArray);
         }

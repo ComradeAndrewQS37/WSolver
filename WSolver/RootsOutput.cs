@@ -18,42 +18,61 @@ namespace WSolver
         {
             InitializeComponent();
 
-            // setting an icon
-            var directoryInfo = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent;
-            if (directoryInfo != null)
+            // setting an icon for window
+            var icoDirectory = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent?.FullName;
+            if (icoDirectory != null)
             {
-                string icoDirectory = directoryInfo.FullName;
                 this.Icon = new Icon(icoDirectory + "\\ex.ico");
             }
+
             Equation_label.Text = equation;
 
             string[] methods={"Дихотомия (1)", "Дихотомия (2)","Метод Ньютона","Метод секущих"};
 
-            int i = 0;
+            // number of roots collection which we are output
+            int outputNum = 0;
+
+            // number of method which we output
             int methodNum = 1;
+
+            // max number of roots in all collections
             int maxLength = 0;
+
             foreach (var roots in allRootsLists)
             {
+                // find next method that was used
                 while (!checkArray[methodNum])
                 {
                     methodNum++;
                 }
+
+                // update maxLength value
                 maxLength = roots.Count > maxLength ? roots.Count : maxLength;
 
+                Label methodNameLabel = new Label
+                {
+                    AutoSize = true,
+                    Location = new Point(430 * outputNum + 45, 60),
+                    Text = methods[methodNum - 1],
+                    Font = new Font(new FontFamily("Arial"), 12, System.Drawing.FontStyle.Regular)
+                };
+                this.Controls.Add(methodNameLabel);
+
+                // check if any roots were found
                 if (roots.Count > 0)
                 {
                     // listbox with roots
-                    ListBox newLb = new ListBox
+                    ListBox rootsListBox = new ListBox
                     {
-                        Location = new Point(430 * i + 45, 90),
+                        Location = new Point(430 * outputNum + 45, 60 + 30),
                         Size = new Size(330, 4 + 28 * roots.Count),
                         Font = new Font(new FontFamily("Arial"), 13.8f, System.Drawing.FontStyle.Regular)
                     };
                     foreach (double root in roots)
                     {
-                        newLb.Items.Add($"x = {root}");
+                        rootsListBox.Items.Add($"x = {root}");
                     }
-                    this.Controls.Add(newLb);
+                    this.Controls.Add(rootsListBox);
                 }
                 else
                 {
@@ -61,30 +80,19 @@ namespace WSolver
                     Label noRootsLabel = new Label
                     {
                         AutoSize = true,
-                        Location = new Point(430 * i + 45, 90),
+                        Location = new Point(430 * outputNum + 45, 60 + 30),
                         Text = "Корней не найдено",
                         Font = new Font(new FontFamily("Arial"), 13.8f, System.Drawing.FontStyle.Regular)
                     };
                     this.Controls.Add(noRootsLabel);
                 }
-
-                Label methodNameLabel = new Label
-                {
-                    AutoSize = true,
-                    Location = new Point(430 * i + 45, 90 - 30),
-                    Text = methods[methodNum-1],
-                    Font = new Font(new FontFamily("Arial"), 12, System.Drawing.FontStyle.Regular)
-                };
-                this.Controls.Add(methodNameLabel);
-
-                i++;
+                
+                outputNum++;
                 methodNum++;
             }
 
-            this.Size = new Size(430*i, 180 + maxLength * 28);
-            this.MinimumSize = new Size(430*i, 180 + maxLength * 28);
-
-
+            this.Size = new Size(430*outputNum, 180 + maxLength * 28);
+            this.MinimumSize = new Size(430*outputNum, 180 + maxLength * 28);
         }
         
     }

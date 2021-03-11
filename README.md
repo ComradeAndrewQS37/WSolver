@@ -7,4 +7,5 @@ The whole process:
 
 ### Root-finding methods:
 * [Bisection (dichotomy)](WSolver/Dichotomy.cs)
+* [Secant Method](WSolver/Secant.cs)
 

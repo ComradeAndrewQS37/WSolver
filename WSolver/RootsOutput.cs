@@ -17,13 +17,7 @@ namespace WSolver
         public RootsOutput(List<List<double>> allRootsLists, string equation, bool[] checkArray)
         {
             InitializeComponent();
-
-            // setting an icon for window
-            var icoDirectory = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent?.FullName;
-            if (icoDirectory != null)
-            {
-                this.Icon = new Icon(icoDirectory + "\\ex.ico");
-            }
+            
 
             Equation_label.Text = equation;
 

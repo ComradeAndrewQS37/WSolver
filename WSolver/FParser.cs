@@ -18,7 +18,11 @@ namespace WSolver
     class FParser
     {
         // all processed operations
-        private static string[] Operators = { "+", "-", "/", "*", "^", "sin", "cos", "tg", "ctg", "ln", "lg", "log", "sqrt" };
+        private static string[] Operators =
+        {
+            "+", "-", "/", "*", "^", "sin", "cos", "tg", "ctg", "ln", "lg", "log", "sqrt",
+            "arcsin", "arccos", "arctg", "arcctg"
+        };
         // stack only for brackets and operators
         private Stack<string> _st = new Stack<string>();
         //splitted reverse polish notation
@@ -81,7 +85,7 @@ namespace WSolver
             formula = formula.Replace("( - ", "( 0 - ");
 
             // process cases like 45x or 6sin(y), when * is missing
-            string[] pArr = {usedVariable, "sin", "cos", "tg", "ctg", "ln", "lg", "e", "pi" };
+            string[] pArr = {usedVariable, "sin", "cos", "tg", "ctg", "ln", "lg", "sqrt", "arcsin", "arccos", "arctg", "arcctg", "e", "pi" };
             foreach (string p in pArr)
             {
                 int displacement = 0;

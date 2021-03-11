@@ -46,8 +46,7 @@ namespace WSolver
                         break;
                     }
                 }
-
-
+                
                 double newRoot = (a + b) / 2;
 
                 if (CheckRoot(f, newRoot) && !Roots.Contains(Math.Round(newRoot, 2)))

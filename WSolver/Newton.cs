@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace WSolver
 {
-    /*
-    * !!!UNDER CONSTRUCTION!!!
-    */
     class Newton
     {
         public static System.Random Rand = new Random();

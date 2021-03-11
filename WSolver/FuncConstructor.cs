@@ -21,28 +21,34 @@ namespace WSolver
         {
             // all binary operators and their functions
             string[] binOpArr = { "+", "-", "*", "/", "^", "log" };
-            Dictionary<string, Func<Func<double, double>, Func<double, double>, Func<double, double>>> binOpDict = new Dictionary<string, Func<Func<double, double>, Func<double, double>, Func<double, double>>>()
-            {
-                {"+", Plus },
-                {"-", Minus },
-                {"*", Multiply },
-                {"/", Divide },
-                {"^", Power},
-                {"log", Log }
-            };
+            Dictionary<string, Func<Func<double, double>, Func<double, double>, Func<double, double>>> binOpDict =
+                new Dictionary<string, Func<Func<double, double>, Func<double, double>, Func<double, double>>>()
+                {
+                    {"+", Plus},
+                    {"-", Minus},
+                    {"*", Multiply},
+                    {"/", Divide},
+                    {"^", Power},
+                    {"log", Log}
+                };
 
             // all unary operators and their functions
-            string[] unOpArr = { "sin", "cos", "tg", "ctg", "ln", "lg", "sqrt" };
-            Dictionary<string, Func<Func<double, double>, Func<double, double>>> unOpDict = new Dictionary<string, Func<Func<double, double>, Func<double, double>>>()
-            {
-                {"sin", Sin },
-                {"cos", Cos },
-                {"tg", Tan },
-                {"ctg", Cot },
-                {"ln", Ln},
-                {"lg", Lg },
-                {"sqrt", Sqrt }
-            };
+            string[] unOpArr = { "sin", "cos", "tg", "ctg", "ln", "lg", "sqrt", "arcsin", "arccos", "arctg", "arcctg" };
+            Dictionary<string, Func<Func<double, double>, Func<double, double>>> unOpDict =
+                new Dictionary<string, Func<Func<double, double>, Func<double, double>>>()
+                {
+                    {"sin", Sin},
+                    {"cos", Cos},
+                    {"tg", Tan},
+                    {"ctg", Cot},
+                    {"ln", Ln},
+                    {"lg", Lg},
+                    {"sqrt", Sqrt},
+                    {"arcsin", ASin},
+                    {"arccos", ACos},
+                    {"arctg", ATan},
+                    {"arcctg", ACot}
+                };
 
             Stack<Func<double, double>> funcStack = new Stack<Func<double, double>>();
             string[] listedFormula = parsedFormula.Split(' ');
@@ -206,5 +212,24 @@ namespace WSolver
             return (x) => (Math.Sqrt(s1(x)));
         }
 
+        private static Func<double, double> ASin(Func<double, double> s1)
+        {
+            return (x) => (Math.Asin(s1(x)));
+        }
+
+        private static Func<double, double> ACos(Func<double, double> s1)
+        {
+            return (x) => (Math.Acos(s1(x)));
+        }
+
+        private static Func<double, double> ATan(Func<double, double> s1)
+        {
+            return (x) => (Math.Atan(s1(x)));
+        }
+
+        private static Func<double, double> ACot(Func<double, double> s1)
+        {
+            return (x) => (Math.PI/2 - Math.Atan(s1(x)));
+        }
     }
 }

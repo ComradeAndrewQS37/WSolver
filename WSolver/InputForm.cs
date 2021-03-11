@@ -19,13 +19,6 @@ namespace WSolver
             this.Text = "WSolver";
             this.MinimumSize = new Size(710, 280);
 
-            // setting an icon for window
-            var icoDirectory = System.IO.Directory.GetParent(Environment.CurrentDirectory).Parent?.FullName;
-            if (icoDirectory != null)
-            {
-                this.Icon = new Icon(icoDirectory + "\\ex.ico");
-            }
-
         }
 
         

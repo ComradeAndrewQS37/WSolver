@@ -46,6 +46,7 @@ namespace WSolver
                     SmallSegments.MainSolver,
                     Newton.MainSolver,
                     Secant.MainSolver
+                    // newClass.newSolver
                 };
 
                 //using different methods
@@ -55,17 +56,7 @@ namespace WSolver
                     if (!checkArray[i + 1]) continue;
 
                     List<double> foundRoots= methodsList[i](parsedFunction);
-
-                    // if we use dichotomy method
-                    if (i == 0)
-                    {
-                        // do 10 iterations as method sometimes finds not all roots
-                        for (int j = 0; j < 10; j++)
-                        {
-                            List<double> buffRoots = Dichotomy.MainSolver(parsedFunction);
-                            foundRoots = foundRoots.Count < buffRoots.Count ? buffRoots : foundRoots;
-                        }
-                    }
+                    
                     foundRoots.Sort();
                     allRootsLists.Add(foundRoots);
                 }

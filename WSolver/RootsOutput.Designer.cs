@@ -29,6 +29,7 @@ namespace WSolver
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RootsOutput));
             this.Equation_label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@ namespace WSolver
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(412, 189);
             this.Controls.Add(this.Equation_label);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RootsOutput";
             this.Text = "RootsOutput";
             this.ResumeLayout(false);

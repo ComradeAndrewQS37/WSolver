@@ -7,7 +7,7 @@ The whole process:
 
 ### Root-finding methods:
 * Bisection (dichotomy)
-* * [Searching roots on one big segment](WSolver/Dichotomy.cs)
-* * [Searching roots on segment divided into many little parts](WSolver/SmallSegments.cs) 
+  * [Searching roots on one big segment](WSolver/Dichotomy.cs)
+  * [Searching roots on segment divided into many little parts](WSolver/SmallSegments.cs) 
 * [Secant Method](WSolver/Secant.cs)
 

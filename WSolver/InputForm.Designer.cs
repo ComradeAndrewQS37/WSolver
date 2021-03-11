@@ -36,14 +36,29 @@ namespace WSolver
             this.label2 = new System.Windows.Forms.Label();
             this.checkBoxDichotomy = new System.Windows.Forms.CheckBox();
             this.checkBoxCloseRoots = new System.Windows.Forms.CheckBox();
+            this.smallSegmentsCheckBox = new System.Windows.Forms.CheckBox();
+            this.NewtonCheckBox = new System.Windows.Forms.CheckBox();
+            this.secantCheckBox = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // solveButton
             // 
+            this.solveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.solveButton.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.solveButton.Location = new System.Drawing.Point(542, 137);
+            this.solveButton.Location = new System.Drawing.Point(81, 58);
             this.solveButton.Name = "solveButton";
-            this.solveButton.Size = new System.Drawing.Size(259, 55);
+            this.solveButton.Size = new System.Drawing.Size(259, 49);
             this.solveButton.TabIndex = 1;
             this.solveButton.Text = "Решить";
             this.solveButton.UseMnemonic = false;
@@ -52,8 +67,9 @@ namespace WSolver
             // 
             // equationBox
             // 
+            this.equationBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.equationBox.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.equationBox.Location = new System.Drawing.Point(248, 38);
+            this.equationBox.Location = new System.Drawing.Point(281, 32);
             this.equationBox.Name = "equationBox";
             this.equationBox.Size = new System.Drawing.Size(477, 44);
             this.equationBox.TabIndex = 2;
@@ -62,7 +78,7 @@ namespace WSolver
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(28, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(150, 23);
             this.label1.TabIndex = 3;
@@ -70,17 +86,19 @@ namespace WSolver
             // 
             // variableBox
             // 
+            this.variableBox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.variableBox.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.variableBox.Location = new System.Drawing.Point(62, 37);
+            this.variableBox.Location = new System.Drawing.Point(75, 32);
             this.variableBox.Name = "variableBox";
             this.variableBox.Size = new System.Drawing.Size(48, 44);
             this.variableBox.TabIndex = 4;
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(394, 9);
+            this.label2.Location = new System.Drawing.Point(435, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(177, 23);
             this.label2.TabIndex = 5;
@@ -89,36 +107,147 @@ namespace WSolver
             // checkBoxDichotomy
             // 
             this.checkBoxDichotomy.AutoSize = true;
-            this.checkBoxDichotomy.Location = new System.Drawing.Point(62, 104);
+            this.checkBoxDichotomy.Location = new System.Drawing.Point(50, 17);
             this.checkBoxDichotomy.Name = "checkBoxDichotomy";
-            this.checkBoxDichotomy.Size = new System.Drawing.Size(103, 21);
+            this.checkBoxDichotomy.Size = new System.Drawing.Size(125, 21);
             this.checkBoxDichotomy.TabIndex = 6;
-            this.checkBoxDichotomy.Text = "Дихотомия";
+            this.checkBoxDichotomy.Text = "Дихотомия (1)";
             this.checkBoxDichotomy.UseVisualStyleBackColor = true;
             // 
             // checkBoxCloseRoots
             // 
+            this.checkBoxCloseRoots.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.checkBoxCloseRoots.AutoSize = true;
-            this.checkBoxCloseRoots.Location = new System.Drawing.Point(632, 110);
+            this.checkBoxCloseRoots.Location = new System.Drawing.Point(168, 31);
             this.checkBoxCloseRoots.Name = "checkBoxCloseRoots";
             this.checkBoxCloseRoots.Size = new System.Drawing.Size(169, 21);
             this.checkBoxCloseRoots.TabIndex = 7;
             this.checkBoxCloseRoots.Text = "Закрыть другие окна";
             this.checkBoxCloseRoots.UseVisualStyleBackColor = true;
             // 
+            // smallSegmentsCheckBox
+            // 
+            this.smallSegmentsCheckBox.AutoSize = true;
+            this.smallSegmentsCheckBox.Location = new System.Drawing.Point(50, 46);
+            this.smallSegmentsCheckBox.Name = "smallSegmentsCheckBox";
+            this.smallSegmentsCheckBox.Size = new System.Drawing.Size(125, 21);
+            this.smallSegmentsCheckBox.TabIndex = 8;
+            this.smallSegmentsCheckBox.Text = "Дихотомия (2)";
+            this.smallSegmentsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // NewtonCheckBox
+            // 
+            this.NewtonCheckBox.AutoSize = true;
+            this.NewtonCheckBox.Location = new System.Drawing.Point(50, 75);
+            this.NewtonCheckBox.Name = "NewtonCheckBox";
+            this.NewtonCheckBox.Size = new System.Drawing.Size(134, 21);
+            this.NewtonCheckBox.TabIndex = 9;
+            this.NewtonCheckBox.Text = "Метод Ньютона";
+            this.NewtonCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // secantCheckBox
+            // 
+            this.secantCheckBox.AutoSize = true;
+            this.secantCheckBox.Location = new System.Drawing.Point(50, 104);
+            this.secantCheckBox.Name = "secantCheckBox";
+            this.secantCheckBox.Size = new System.Drawing.Size(130, 21);
+            this.secantCheckBox.TabIndex = 10;
+            this.secantCheckBox.Text = "Метод секущих";
+            this.secantCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(191, 17);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(108, 21);
+            this.checkBox1.TabIndex = 11;
+            this.checkBox1.Text = "Ещё способ";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(191, 48);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(121, 21);
+            this.checkBox2.TabIndex = 12;
+            this.checkBox2.Text = "И ещё способ";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(191, 77);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(126, 21);
+            this.checkBox3.TabIndex = 13;
+            this.checkBox3.Text = "Ну и ещё один";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.variableBox);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.equationBox);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(792, 95);
+            this.panel2.TabIndex = 15;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.checkBoxCloseRoots);
+            this.panel1.Controls.Add(this.solveButton);
+            this.panel1.Location = new System.Drawing.Point(440, 31);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(340, 106);
+            this.panel1.TabIndex = 14;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Controls.Add(this.panel1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel3.Location = new System.Drawing.Point(0, 100);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(792, 153);
+            this.panel3.TabIndex = 16;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.secantCheckBox);
+            this.panel4.Controls.Add(this.checkBox3);
+            this.panel4.Controls.Add(this.NewtonCheckBox);
+            this.panel4.Controls.Add(this.checkBox2);
+            this.panel4.Controls.Add(this.smallSegmentsCheckBox);
+            this.panel4.Controls.Add(this.checkBox1);
+            this.panel4.Controls.Add(this.checkBoxDichotomy);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(349, 153);
+            this.panel4.TabIndex = 15;
+            // 
             // InputForm
             // 
-            this.ClientSize = new System.Drawing.Size(813, 204);
-            this.Controls.Add(this.checkBoxCloseRoots);
-            this.Controls.Add(this.checkBoxDichotomy);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.variableBox);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.equationBox);
-            this.Controls.Add(this.solveButton);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(792, 253);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
             this.Name = "InputForm";
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -131,5 +260,15 @@ namespace WSolver
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBoxDichotomy;
         private System.Windows.Forms.CheckBox checkBoxCloseRoots;
+        private System.Windows.Forms.CheckBox smallSegmentsCheckBox;
+        private System.Windows.Forms.CheckBox NewtonCheckBox;
+        private System.Windows.Forms.CheckBox secantCheckBox;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
     }
 }

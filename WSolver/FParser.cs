@@ -18,18 +18,18 @@ namespace WSolver
     class FParser
     {
         // all processed operations
-        static string[] Operators = { "+", "-", "/", "*", "^", "sin", "cos", "tg", "ctg", "ln", "lg", "log", "sqrt" };
+        private static string[] Operators = { "+", "-", "/", "*", "^", "sin", "cos", "tg", "ctg", "ln", "lg", "log", "sqrt" };
         // stack only for brackets and operators
-        Stack<string> st = new Stack<string>();
+        private Stack<string> _st = new Stack<string>();
         //splitted reverse polish notation
-        List<string> compiled = new List<string>();
+        private List<string> _compiled = new List<string>();
 
-        static string used_variable;
+        private static string usedVariable;
 
 
         public static string MainParser(string formula, string variable)
         {
-            used_variable = variable;
+            usedVariable = variable;
 
             formula = formula.ToLower();
             formula = formula.Replace(" ", "");
@@ -47,6 +47,18 @@ namespace WSolver
                 throw new SyntaxException("Вы пропустили одну или несколько скобок\nТакая запись некорректна, проверьте ещё раз");
             }
 
+            if (usedVariable == "")
+            {
+                // no variable chosen
+                throw new NotEquationException( "Введите имя переменной, по которой будет решаться уравнение");
+            }
+
+            if (!formula.Contains(usedVariable))
+            {
+                // no variable in equation
+                throw new NotEquationException("В выражении отстутсвует переменная, по которой будет решаться уравнение\nПроверьте введённую формулу ещё раз");
+            }
+
             // all terms to the left
             formula = formula.Replace("=", "-(") + ")";
             // all formula to brackets (nothing is changed mathematically, but easier to process
@@ -54,7 +66,8 @@ namespace WSolver
 
 
             string[] ops = { "+", "-", "*", "/", "^", "(", ")" };
-            foreach (string op in ops){
+            foreach (string op in ops)
+            {
                 // distinguish operators and brackets with whitespaces
                 formula = formula.Replace(op, " " + op + " ");
             }
@@ -68,7 +81,7 @@ namespace WSolver
             formula = formula.Replace("( - ", "( 0 - ");
 
             // process cases like 45x or 6sin(y), when * is missing
-            string[] pArr = {used_variable, "sin", "cos", "tg", "ctg", "ln", "lg", "e", "pi" };
+            string[] pArr = {usedVariable, "sin", "cos", "tg", "ctg", "ln", "lg", "e", "pi" };
             foreach (string p in pArr)
             {
                 int displacement = 0;
@@ -90,12 +103,13 @@ namespace WSolver
 
             FParser FP = new FParser();
             return FP.Compile(formula.Split(' '));
-        } 
-        
+        }
 
-        public string Compile(string[] splittedFormula)
+
+        private string Compile(string[] splittedFormula)
         {
-            this.compiled = new List<string>();
+            this._compiled = new List<string>();
+            this._st = new Stack<string>();
             foreach (string symbol in splittedFormula)
             {
                 try
@@ -109,15 +123,15 @@ namespace WSolver
                     throw new SyntaxException("Синтаксическая ошибка в формуле\nПроверьте ещё раз");
                 }
             }
-            return string.Join(" ", this.compiled);
+            return string.Join(" ", this._compiled);
         }
 
 
-        public void ProcessSymbol(string s)
+        private void ProcessSymbol(string s)
         {
             if (s == "(")
             {
-                this.st.Push(s);
+                this._st.Push(s);
                 // when we have a bracket, we delay the operation before bracket
             }
             else if (s == ")")
@@ -125,42 +139,42 @@ namespace WSolver
                 // process delayed operations
                 this.ProcessSuspended(s);
                 //remove "(" from stack
-                this.st.Pop();
+                this._st.Pop();
             }
             else if (Operators.Contains(s))
             {
                 // when have new operation, process delayed operations
                 this.ProcessSuspended(s);
                 // and delay this operation
-                this.st.Push(s);
+                this._st.Push(s);
             }
             else
             {
                 // if it's an inappropriate character, throw an exception
                 CheckSymbol(s);
                 // otherwise put into result
-                this.compiled.Add(s);
+                this._compiled.Add(s);
             }
         }
 
 
-        public void ProcessSuspended(string s)
+        private void ProcessSuspended(string s)
         {
             /*
              * move operators to compiled from st until meet "(" (including bracket in the very beginning of formula)
              * or if we need to process this operation before the first in the st
              */
             
-            while (IsBefore(st.Peek(), s))
+            while (IsBefore(_st.Peek(), s))
             {
-                this.compiled.Add(st.Pop());
+                this._compiled.Add(_st.Pop());
             }
         }
 
 
 
         // checks if a is processed before b
-        public static bool IsBefore(string a,string b)
+        private static bool IsBefore(string a,string b)
         {
             if (a == "(")
             {
@@ -178,8 +192,9 @@ namespace WSolver
             }
         }
 
-       
-        public static int Priority(string s)
+
+        //returns priority of operation
+        private static int Priority(string s)
         {
             if (s == "+" || s == "-")
             {
@@ -196,22 +211,23 @@ namespace WSolver
         }
 
         // counts number of c in s
-        public static int SymbolCount(string s, char c)
+        private static int SymbolCount(string s, char c)
         {
             return s.Split(c).Length - 1;
         }
 
-        public static void CheckSymbol(string s)
+        // checks if symbol is valid
+        private static void CheckSymbol(string s)
         {
-            // besides operators and brackets only variables and num constants are possible
-            string pattern_cor1 = $@"^(([0-9]+[\.,]?[0-9]*)|(pi)|(e)|{used_variable})$"; // correct character
-            string pattern_cor2 = $@"^-(([0-9]+[\.,]?[0-9]*)|(pi)|(e)|{used_variable})$"; // correct character with unary minus
+            // besides operators and brackets only variables and num constants are valid elements
+            string patternCor1 = $@"^(([0-9]+[\.,]?[0-9]*)|(pi)|(e)|{usedVariable})$"; // correct character
+            string patternCor2 = $@"^-(([0-9]+[\.,]?[0-9]*)|(pi)|(e)|{usedVariable})$"; // correct character with unary minus
 
-            if (!Regex.IsMatch(s, pattern_cor1, RegexOptions.IgnoreCase) && !Regex.IsMatch(s, pattern_cor2, RegexOptions.IgnoreCase))
+            if (!Regex.IsMatch(s, patternCor1, RegexOptions.IgnoreCase) && !Regex.IsMatch(s, patternCor2, RegexOptions.IgnoreCase))
             {
-                string pattern_var=@"^\w+$"; // possibly a variable, but the wrong one
+                string patternVar=@"^\w+$"; // possibly a variable, but the wrong one
 
-                if (Regex.IsMatch(s, pattern_var, RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(s, patternVar, RegexOptions.IgnoreCase))
                 {
                     // probably wrong variable
                     throw new WrongElementException("Неизвестная переменная: " + s + "\nПроверьте выражение ещё раз");

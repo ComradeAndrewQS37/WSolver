@@ -30,7 +30,6 @@ namespace WSolver
         private void InitializeComponent()
         {
             this.Equation_label = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // Equation_label
@@ -44,23 +43,11 @@ namespace WSolver
             this.Equation_label.Text = "Equation";
             this.Equation_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // listBox1
-            // 
-            this.listBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.listBox1.Font = new System.Drawing.Font("Calibri", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 28;
-            this.listBox1.Location = new System.Drawing.Point(46, 60);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(323, 424);
-            this.listBox1.TabIndex = 1;
-            // 
             // RootsOutput
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 531);
-            this.Controls.Add(this.listBox1);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(412, 189);
             this.Controls.Add(this.Equation_label);
             this.Name = "RootsOutput";
             this.Text = "RootsOutput";
@@ -71,6 +58,5 @@ namespace WSolver
         #endregion
 
         private System.Windows.Forms.Label Equation_label;
-        private System.Windows.Forms.ListBox listBox1;
     }
 }

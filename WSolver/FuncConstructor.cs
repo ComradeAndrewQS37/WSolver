@@ -25,7 +25,7 @@ namespace WSolver
             {
                 {"+", Plus },
                 {"-", Minus },
-                {"*", Product },
+                {"*", Multiply },
                 {"/", Divide },
                 {"^", Power},
                 {"log", Log }
@@ -48,13 +48,11 @@ namespace WSolver
             string[] listedFormula = parsedFormula.Split(' ');
             foreach (string elem in listedFormula)
             {
-                // in case of unknown input error
-                //InvalidOperationException is thrown if we try pop() or peak() empty stack
                 try
                 {
                     if (binOpArr.Contains(elem))
                     {
-
+                        // if operator is binary
                         var s2 = funcStack.Pop();
                         var s1 = funcStack.Pop();
                         funcStack.Push(binOpDict[elem](s1, s2));
@@ -62,16 +60,20 @@ namespace WSolver
 
                     else if (unOpArr.Contains(elem))
                     {
+                        // if operator is unary
                         var s1 = funcStack.Pop();
                         funcStack.Push(unOpDict[elem](s1));
                     }
                     else
                     {
+                        // if it is variable or constant
                         funcStack.Push(Liter(elem, variable));
                     }
                 }
                 catch (InvalidOperationException)
                 {
+                    // in case of unknown input error
+                    //InvalidOperationException is thrown if we try pop() or peak() empty stack
                     throw new SyntaxException("Синтаксическая ошибка в формуле\nПроверьте ещё раз");
                 }
             }
@@ -89,7 +91,7 @@ namespace WSolver
         }
 
         // receives operand, returns function (x)=>(l)
-        public static Func<double,double> Liter(string l, string variable)
+        private static Func<double,double> Liter(string l, string variable)
         {
             
             if (l == variable)
@@ -138,58 +140,68 @@ namespace WSolver
         }
 
         // primary math functions implementations
-        public static Func<double, double> Plus(Func<double, double> s1, Func<double, double> s2)
+        private static Func<double, double> Plus(Func<double, double> s1, Func<double, double> s2)
         {
             return (x) => (s1(x) + s2(x));
         }
 
-        public static Func<double, double> Minus(Func<double, double> s1, Func<double, double> s2)
+        private static Func<double, double> Minus(Func<double, double> s1, Func<double, double> s2)
         {
             return (x) => (s1(x) - s2(x));
         }
 
-        public static Func<double, double> Product(Func<double, double> s1, Func<double, double> s2)
+        private static Func<double, double> Multiply(Func<double, double> s1, Func<double, double> s2)
         {
             return (x) => (s1(x) * s2(x));
         }
 
-        public static Func<double, double> Divide(Func<double, double> s1, Func<double, double> s2)
+        private static Func<double, double> Divide(Func<double, double> s1, Func<double, double> s2)
         {
             return (x) => (s1(x) / s2(x));
         }
-        public static Func<double, double> Power(Func<double, double> s1, Func<double, double> s2)
+
+        private static Func<double, double> Power(Func<double, double> s1, Func<double, double> s2)
         {
             return (x) => (Math.Pow(s1(x), s2(x)));
         }
-        public static Func<double, double> Sin(Func<double, double> s1)
+
+        private static Func<double, double> Sin(Func<double, double> s1)
         {
             return (x) => (Math.Sin(s1(x)));
         }
-        public static Func<double, double> Cos(Func<double, double> s1)
+
+        private static Func<double, double> Cos(Func<double, double> s1)
         {
             return (x) => (Math.Cos(s1(x)));
         }
-        public static Func<double, double> Tan(Func<double, double> s1)
+
+        private static Func<double, double> Tan(Func<double, double> s1)
         {
             return (x) => (Math.Tan(s1(x)));
         }
-        public static Func<double, double> Cot(Func<double, double> s1)
+
+        private static Func<double, double> Cot(Func<double, double> s1)
         {
             return (x) => (1 / Math.Tan(s1(x)));
         }
-        public static Func<double, double> Ln(Func<double, double> s1)
+
+        private static Func<double, double> Ln(Func<double, double> s1)
         {
             return (x) => (Math.Log(s1(x)));
         }
-        public static Func<double, double> Lg(Func<double, double> s1)
+
+        private static Func<double, double> Lg(Func<double, double> s1)
         {
             return (x) => (Math.Log10(s1(x)));
         }
-        public static Func<double, double> Log(Func<double, double> s1, Func<double, double> s2)
+
+        private static Func<double, double> Log(Func<double, double> s1, Func<double, double> s2)
         {
-            return (x) => (Math.Log(s2(x)) / Math.Log(s1(x)));
+            return (x) =>
+                (Math.Log(s2(x)) / Math.Log(s1(x)));
         }
-        public static Func<double, double> Sqrt(Func<double, double> s1)
+
+        private static Func<double, double> Sqrt(Func<double, double> s1)
         {
             return (x) => (Math.Sqrt(s1(x)));
         }

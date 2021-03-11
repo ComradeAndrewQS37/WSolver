@@ -64,6 +64,7 @@
     <Compile Include="InputForm.Designer.cs">
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Newton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootsOutput.cs">
@@ -72,6 +73,8 @@
     <Compile Include="RootsOutput.Designer.cs">
       <DependentUpon>RootsOutput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Secant.cs" />
+    <Compile Include="SmallSegments.cs" />
     <Compile Include="Solver.cs" />
     <EmbeddedResource Include="InputForm.resx">
       <DependentUpon>InputForm.cs</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,21 +16,27 @@ namespace WSolver
 
         public static void SolutionManager(string formula, string usedVariable, bool[] checkArray)
         {
-            // checkArray = {closeRootsWindows, Dichotomy} 
+            // checkArray = {closeRootsWindows, Dichotomy, SmallSegments, Newton, checkSecant} 
             bool isExceptionThrown = false;
             // lists with roots from various methods
             List<double> dichotomyRoots = new List<double>();
-            // List<double> other_method_roots = new List<double>();
+            List<double> smallSegmentsRoots = new List<double>();
+            List<double> newtonRoots = new List<double>();
+            List<double> secantRoots = new List<double>();
+            List<double> new1Roots = new List<double>();
+            List<double> new2Roots = new List<double>();
+            List<double> new3Roots = new List<double>();
 
-            // if user wants all unused windows to be closed
+
+
+
+            // if user wants unused window to be closed
             if (checkArray[0])
             {
-                foreach (Form f in openedRootsWindows)
+                foreach (var f in openedRootsWindows)
                 {
                     f.Close();
                 }
-                openedRootsWindows = new List<Form>();
-
             }
 
             try
@@ -54,20 +61,50 @@ namespace WSolver
 
                     }
 
-                    // happens usually in case of periodic function
-                    // !!! SPECIAL INSPECTIONS NECESSARY !!!
-                    if (dichotomyRoots.Count > 10)
-                    {
-                        dichotomyRoots = dichotomyRoots
-                            .OrderBy(Math.Abs)
-                            .Take(5)
-                            .ToList();
-                    }
-
                     dichotomyRoots.Sort();
                 }
 
-                //other_method_roots = MethodClass.MethodFunc(parsed_function);
+                if (checkArray[2])
+                {
+                    smallSegmentsRoots = SmallSegments.MainSolver(parsedFunction);
+
+                    smallSegmentsRoots.Sort();
+
+                }
+
+                if (checkArray[3])
+                {
+                    newtonRoots = Newton.MainSolver(parsedFunction);
+
+                    newtonRoots.Sort();
+                }
+
+                if (checkArray[4])
+                {
+                    secantRoots = Secant.MainSolver(parsedFunction);
+
+                    secantRoots.Sort();
+                }
+                /*
+                if (checkArray[5])
+                {
+                    new1Roots = <newClass>.<newFunc>(parsedFunction);
+
+                    new1Roots.Sort();
+                }
+                if (checkArray[6])
+                {
+                    new2Roots = <newClass>.<newFunc>(parsedFunction);
+
+                    new2Roots.Sort();
+                }
+                if (checkArray[7])
+                {
+                    new3Roots = <newClass>.<newFunc>(parsedFunction);
+
+                    new3Roots.Sort();
+                }*/
+
             }
             catch (Exception ex)
             {
@@ -85,37 +122,52 @@ namespace WSolver
 
             if (!isExceptionThrown)
             {
-                // if dichotomy solved
+                List<List<double>> allRootsLists = new List<List<double>>();
                 if (checkArray[1])
                 {
-                    if (dichotomyRoots.Count > 0)
-                    {
-                        RootsOutput dichotomyRootsOutput = new RootsOutput(dichotomyRoots, formula)
-                            {Text = "Dichotomy"};
-                        openedRootsWindows.Add(dichotomyRootsOutput);
-                        dichotomyRootsOutput.Show();
-
-                        /* To include other methods:
-                        RootsOutput roots_output_n = new RootsOutput(other_method_roots, formula);
-                        roots_output_n.Text = "OtherMethod";
-                        roots_output_n.Show();
-                         */
-                    }
-                    else
-                    {
-                        ShowErrorMessageBox("Корней не найдено", "Действительных корней не найдено");
-                    }
+                    allRootsLists.Add(dichotomyRoots);
                 }
+                if (checkArray[2])
+                {
+                    allRootsLists.Add(smallSegmentsRoots);
+                }
+                if (checkArray[3])
+                {
+                    allRootsLists.Add(newtonRoots);
+                }
+                if (checkArray[4])
+                {
+                    allRootsLists.Add(secantRoots);
+                }/*
+                if (checkArray[5])
+                {
+                    allRootsLists.Add(new1Roots);
+                }
+                if (checkArray[6])
+                {
+                    allRootsLists.Add(new2Roots);
+                }
+                if (checkArray[7])
+                {
+                    allRootsLists.Add(new2Roots);
+                }*/
+                
                 // if no methods were used
-                else
+                if (!checkArray[0] && !checkArray[1] && !checkArray[2] && !checkArray[3] && !checkArray[4] && !checkArray[5] && !checkArray[6] && !checkArray[7])
                 {
                     ShowErrorMessageBox("Не выбраны способы решения", "Пожалуйста, отметьте хотя бы один способ решения");
+                }
+                else
+                {
+                    RootsOutput rootsOutput = new RootsOutput(allRootsLists, formula, checkArray);
+                    openedRootsWindows.Add(rootsOutput);
+                    rootsOutput.Show();
                 }
             }
         }
 
         // just to simplify the code
-        public static void ShowErrorMessageBox(string caption, string messageText)
+        private static void ShowErrorMessageBox(string caption, string messageText)
         {
             MessageBox.Show(
                 messageText,

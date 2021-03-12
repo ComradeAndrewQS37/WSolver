@@ -32,15 +32,24 @@ namespace WSolver
             bool checkSmallSegments = smallSegmentsCheckBox.Checked;
             bool checkNewton = NewtonCheckBox.Checked;
             bool checkSecant = secantCheckBox.Checked;
+            /* if we want to add new methods
             bool checkNew1 = checkBox1.Checked;
             bool checkNew2 = checkBox2.Checked;
             bool checkNew3 = checkBox3.Checked;
+            */
 
-            bool[] checkArray = {closeAll, checkDichotomy, checkSmallSegments, checkNewton, checkSecant, checkNew1, checkNew2, checkNew3 };
-            
+
+            Dictionary<string, bool> methodsCheckDictionary = new Dictionary<string, bool>()
+            {
+                {"Bisection (1)", checkDichotomy},
+                {"Bisection (2)", checkSmallSegments},
+                {"Newton", checkNewton},
+                {"Secant", checkSecant}
+                //{"New method name", checkNewMethod}
+            };
 
             // manages all solution processes
-            Solver.SolutionManager(formula, usedVariable, checkArray);
+            Solver.SolutionManager(formula, usedVariable, closeAll, methodsCheckDictionary);
         }
         
     }

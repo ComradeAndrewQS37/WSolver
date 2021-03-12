@@ -14,31 +14,23 @@ namespace WSolver
     public partial class RootsOutput : Form
     {
         //window for showing roots
-        public RootsOutput(List<List<double>> allRootsLists, string equation, bool[] checkArray)
+        public RootsOutput(string equation, Dictionary<string, List<double>> allRootsDictionary)
         {
             InitializeComponent();
-            
-
-            Equation_label.Text = equation;
-
-            string[] methods={"Дихотомия (1)", "Дихотомия (2)","Метод Ньютона","Метод секущих"};
-
-            // number of roots collection which we are output
-            int outputNum = 0;
-
-            // number of method which we output
-            int methodNum = 1;
 
             // max number of roots in all collections
             int maxLength = 0;
 
-            foreach (var roots in allRootsLists)
+            // number of roots collection which we are output
+            int outputNum = 0;
+
+            // label with equation at the top
+            Equation_label.Text = equation;
+
+            // iterate over all found roots
+            foreach (string method in allRootsDictionary.Keys)
             {
-                // find next method that was used
-                while (!checkArray[methodNum])
-                {
-                    methodNum++;
-                }
+                List<double> roots = allRootsDictionary[method];
 
                 // update maxLength value
                 maxLength = roots.Count > maxLength ? roots.Count : maxLength;
@@ -47,7 +39,7 @@ namespace WSolver
                 {
                     AutoSize = true,
                     Location = new Point(430 * outputNum + 45, 60),
-                    Text = methods[methodNum - 1],
+                    Text = method,
                     Font = new Font(new FontFamily("Arial"), 12, System.Drawing.FontStyle.Regular)
                 };
                 this.Controls.Add(methodNameLabel);
@@ -80,10 +72,11 @@ namespace WSolver
                     };
                     this.Controls.Add(noRootsLabel);
                 }
-                
+
                 outputNum++;
-                methodNum++;
+
             }
+            
 
             this.Size = new Size(430*outputNum, 180 + maxLength * 28);
             this.MinimumSize = new Size(430*outputNum, 180 + maxLength * 28);

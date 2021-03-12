@@ -15,12 +15,17 @@ namespace WSolver
         // save all opened windows with roots output to close them all if necessary
         private static List<Form> openedRootsWindows = new List<Form>();
 
-        public static void SolutionManager(string formula, string usedVariable, bool[] checkArray)
+        public static void SolutionManager(string formula, string usedVariable, bool closeAll, Dictionary<string, bool> methodsCheckDictionary)
         {
-            // checkArray = {closeRootsWindows, Dichotomy, SmallSegments, Newton, checkSecant} 
-            
+            // check if any methods were used
+            if (Array.TrueForAll(methodsCheckDictionary.Values.ToArray(), (x) => (!x)))
+            {
+                ShowErrorMessageBox("Не выбраны способы решения", "Пожалуйста, отметьте хотя бы один способ решения");
+                return;
+            }
+
             // if user wants unused windows to be closed
-            if (checkArray[0])
+            if (closeAll)
             {
                 foreach (var f in openedRootsWindows)
                 {
@@ -28,8 +33,8 @@ namespace WSolver
                 }
             }
 
-            // List with lists of roots from all methods
-            List<List<double>> allRootsLists = new List<List<double>>();
+            // Dictionary with lists of roots from all methods {"Method name", foundRootsList}
+            Dictionary<string, List<double>> allRootsDictionary = new Dictionary<string, List<double>>();
 
             try
             {
@@ -40,26 +45,27 @@ namespace WSolver
                 Func<double, double> parsedFunction = FuncConstructor.MainConstructor(parsedFormula, usedVariable);
 
                 // list with all methods
-                List<Func<Func<double, double>, List<double>>> methodsList = new List<Func<Func<double, double>, List<double>>>()
+                Dictionary<string, Func<Func<double, double>, List<double>>> methodsFuncDictionary = new Dictionary<string, Func<Func<double, double>, List<double>>>()
                 {
-                    Dichotomy.MainSolver,
-                    SmallSegments.MainSolver,
-                    Newton.MainSolver,
-                    Secant.MainSolver
-                    // newClass.newSolver
+                    {"Bisection (1)",  Dichotomy.MainSolver},
+                    {"Bisection (2)", SmallSegments.MainSolver},
+                    {"Newton", Newton.MainSolver},
+                    {"Secant", Secant.MainSolver}
+                    //{"New method name", newClass.newSolver}
                 };
 
-                //using different methods
-                for (int i = 0; i < methodsList.Count;i++)
+                // iterate over all used methods
+                foreach (string methodName in methodsCheckDictionary.Keys)
                 {
                     // if method is not used
-                    if (!checkArray[i + 1]) continue;
+                    if (!methodsCheckDictionary[methodName]) continue;
 
-                    List<double> foundRoots= methodsList[i](parsedFunction);
-                    
+                    List<double> foundRoots = methodsFuncDictionary[methodName](parsedFunction);
+
                     foundRoots.Sort();
-                    allRootsLists.Add(foundRoots);
+                    allRootsDictionary.Add(methodName, foundRoots);
                 }
+                
 
             }
             catch (Exception ex)
@@ -76,18 +82,11 @@ namespace WSolver
                 return;
             }
             
-            // check if any methods were used
-            if (Array.TrueForAll(checkArray.Skip(1).ToArray(),  (x)=>(!x)))
-            {
-                ShowErrorMessageBox("Не выбраны способы решения", "Пожалуйста, отметьте хотя бы один способ решения");
-            }
-            else
-            {
-                // create and show window with roots output
-                RootsOutput rootsOutput = new RootsOutput(allRootsLists, formula, checkArray);
-                openedRootsWindows.Add(rootsOutput);
-                rootsOutput.Show();
-            }
+            // create and show window with roots output
+            RootsOutput rootsOutput = new RootsOutput(formula, allRootsDictionary);
+            openedRootsWindows.Add(rootsOutput);
+            rootsOutput.Show();
+            
         }
 
         // just to simplify the code

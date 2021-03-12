@@ -33,9 +33,6 @@ namespace WSolver
                 }
             }
 
-            // Dictionary with lists of roots from all methods {"Method name", foundRootsList}
-            Dictionary<string, List<double>> allRootsDictionary = new Dictionary<string, List<double>>();
-
             try
             {
                 // convert to reverse polish notation
@@ -44,7 +41,7 @@ namespace WSolver
                 // string formula -> function f(x)
                 Func<double, double> parsedFunction = FuncConstructor.MainConstructor(parsedFormula, usedVariable);
 
-                // list with all methods
+                // dictionary with all methods
                 Dictionary<string, Func<Func<double, double>, List<double>>> methodsFuncDictionary = new Dictionary<string, Func<Func<double, double>, List<double>>>()
                 {
                     {"Bisection (1)",  Dichotomy.MainSolver},
@@ -53,6 +50,9 @@ namespace WSolver
                     {"Secant", Secant.MainSolver}
                     //{"New method name", newClass.newSolver}
                 };
+
+                // dictionary with lists of roots from all methods {"Method name", foundRootsList}
+                Dictionary<string, List<double>> allRootsDictionary = new Dictionary<string, List<double>>();
 
                 // iterate over all used methods
                 foreach (string methodName in methodsCheckDictionary.Keys)
@@ -65,8 +65,12 @@ namespace WSolver
                     foundRoots.Sort();
                     allRootsDictionary.Add(methodName, foundRoots);
                 }
-                
 
+                // create and show window with roots output
+                RootsOutput rootsOutput = new RootsOutput(formula, allRootsDictionary);
+                openedRootsWindows.Add(rootsOutput);
+                rootsOutput.Show();
+                
             }
             catch (Exception ex)
             {
@@ -78,18 +82,11 @@ namespace WSolver
                 {
                     ShowErrorMessageBox("Ошибка", "Неизвестная ошибка\nПроверьте введённую формулу ещё раз или перезапустите программу");
                 }
-
-                return;
             }
-            
-            // create and show window with roots output
-            RootsOutput rootsOutput = new RootsOutput(formula, allRootsDictionary);
-            openedRootsWindows.Add(rootsOutput);
-            rootsOutput.Show();
-            
+
         }
 
-        // just to simplify the code
+        // function to simplify the code
         private static void ShowErrorMessageBox(string caption, string messageText)
         {
             MessageBox.Show(
@@ -100,7 +97,6 @@ namespace WSolver
                 MessageBoxDefaultButton.Button1,
                 MessageBoxOptions.DefaultDesktopOnly);
         }
-
         
     }
 }

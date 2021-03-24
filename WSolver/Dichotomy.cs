@@ -17,6 +17,8 @@ namespace WSolver
         static List<double> roots = new List<double>();
         public static List<double> MainSolver(Func<double, double> f)
         {
+            DateTime startTime = DateTime.Now;
+            
             roots = new List<double>();
 
             System.Random rand = new Random();
@@ -27,6 +29,13 @@ namespace WSolver
             int badRootAmount = 0;
             while (true)
             {
+                // end execution if method freezes
+                double passedSeconds = (DateTime.Now - startTime).TotalSeconds;
+                if (passedSeconds > 10)
+                {
+                    return roots;
+                }
+
                 // roots are searched on [a,b]
                 a = aDefault;
                 b = bDefault;
@@ -89,7 +98,7 @@ namespace WSolver
 
         private static double Derivative(Func<double, double> f, double x)
         {
-            const double h = 0.001;
+            const double h = 0.0001;
             return (f(x + h) - f(x - h)) / (2 * h);
         }
 

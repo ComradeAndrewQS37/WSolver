@@ -31,12 +31,9 @@ namespace WSolver
             bool checkDichotomy = checkBoxDichotomy.Checked;
             bool checkSmallSegments = smallSegmentsCheckBox.Checked;
             bool checkNewton = NewtonCheckBox.Checked;
-            bool checkSecant = secantCheckBox.Checked;
-            /* if we want to add new methods
-            bool checkNew1 = checkBox1.Checked;
-            bool checkNew2 = checkBox2.Checked;
-            bool checkNew3 = checkBox3.Checked;
-            */
+            bool checkChord = chordCheckBox.Checked;
+            bool checkFixedPoint = fixedPointCheckBox.Checked;
+            
 
 
             Dictionary<string, bool> methodsCheckDictionary = new Dictionary<string, bool>()
@@ -44,7 +41,8 @@ namespace WSolver
                 {"Bisection (1)", checkDichotomy},
                 {"Bisection (2)", checkSmallSegments},
                 {"Newton", checkNewton},
-                {"Secant", checkSecant}
+                {"Chord", checkChord},
+                {"Fixed Point", checkFixedPoint}
                 //{"New method name", checkNewMethod}
             };
 

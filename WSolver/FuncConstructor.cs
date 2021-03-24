@@ -156,7 +156,7 @@ namespace WSolver
             return (x) => (s1(x) - s2(x));
         }
 
-        private static Func<double, double> Multiply(Func<double, double> s1, Func<double, double> s2)
+        public static Func<double, double> Multiply(Func<double, double> s1, Func<double, double> s2)
         {
             return (x) => (s1(x) * s2(x));
         }

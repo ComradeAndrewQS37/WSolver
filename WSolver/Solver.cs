@@ -47,7 +47,8 @@ namespace WSolver
                     {"Bisection (1)",  Dichotomy.MainSolver},
                     {"Bisection (2)", SmallSegments.MainSolver},
                     {"Newton", Newton.MainSolver},
-                    {"Secant", Secant.MainSolver}
+                    {"Chord", Chords.MainSolver},
+                    {"Fixed Point", FixedPoint.MainSolver }
                     //{"New method name", newClass.newSolver}
                 };
 

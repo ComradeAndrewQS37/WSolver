@@ -39,10 +39,8 @@ namespace WSolver
             this.checkBoxCloseRoots = new System.Windows.Forms.CheckBox();
             this.smallSegmentsCheckBox = new System.Windows.Forms.CheckBox();
             this.NewtonCheckBox = new System.Windows.Forms.CheckBox();
-            this.secantCheckBox = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.chordCheckBox = new System.Windows.Forms.CheckBox();
+            this.fixedPointCheckBox = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -110,9 +108,9 @@ namespace WSolver
             this.checkBoxDichotomy.AutoSize = true;
             this.checkBoxDichotomy.Location = new System.Drawing.Point(50, 17);
             this.checkBoxDichotomy.Name = "checkBoxDichotomy";
-            this.checkBoxDichotomy.Size = new System.Drawing.Size(125, 21);
+            this.checkBoxDichotomy.Size = new System.Drawing.Size(115, 21);
             this.checkBoxDichotomy.TabIndex = 6;
-            this.checkBoxDichotomy.Text = "Дихотомия (1)";
+            this.checkBoxDichotomy.Text = "Бисекция (1)";
             this.checkBoxDichotomy.UseVisualStyleBackColor = true;
             // 
             // checkBoxCloseRoots
@@ -129,62 +127,42 @@ namespace WSolver
             // smallSegmentsCheckBox
             // 
             this.smallSegmentsCheckBox.AutoSize = true;
-            this.smallSegmentsCheckBox.Location = new System.Drawing.Point(50, 46);
+            this.smallSegmentsCheckBox.Location = new System.Drawing.Point(50, 52);
             this.smallSegmentsCheckBox.Name = "smallSegmentsCheckBox";
-            this.smallSegmentsCheckBox.Size = new System.Drawing.Size(125, 21);
+            this.smallSegmentsCheckBox.Size = new System.Drawing.Size(115, 21);
             this.smallSegmentsCheckBox.TabIndex = 8;
-            this.smallSegmentsCheckBox.Text = "Дихотомия (2)";
+            this.smallSegmentsCheckBox.Text = "Бисекция (2)";
             this.smallSegmentsCheckBox.UseVisualStyleBackColor = true;
             // 
             // NewtonCheckBox
             // 
             this.NewtonCheckBox.AutoSize = true;
-            this.NewtonCheckBox.Location = new System.Drawing.Point(50, 75);
+            this.NewtonCheckBox.Location = new System.Drawing.Point(50, 89);
             this.NewtonCheckBox.Name = "NewtonCheckBox";
             this.NewtonCheckBox.Size = new System.Drawing.Size(134, 21);
             this.NewtonCheckBox.TabIndex = 9;
             this.NewtonCheckBox.Text = "Метод Ньютона";
             this.NewtonCheckBox.UseVisualStyleBackColor = true;
             // 
-            // secantCheckBox
+            // chordCheckBox
             // 
-            this.secantCheckBox.AutoSize = true;
-            this.secantCheckBox.Location = new System.Drawing.Point(50, 104);
-            this.secantCheckBox.Name = "secantCheckBox";
-            this.secantCheckBox.Size = new System.Drawing.Size(130, 21);
-            this.secantCheckBox.TabIndex = 10;
-            this.secantCheckBox.Text = "Метод секущих";
-            this.secantCheckBox.UseVisualStyleBackColor = true;
+            this.chordCheckBox.AutoSize = true;
+            this.chordCheckBox.Location = new System.Drawing.Point(191, 52);
+            this.chordCheckBox.Name = "chordCheckBox";
+            this.chordCheckBox.Size = new System.Drawing.Size(106, 21);
+            this.chordCheckBox.TabIndex = 10;
+            this.chordCheckBox.Text = "Метод хорд";
+            this.chordCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // fixedPointCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(191, 17);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(108, 21);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "Ещё способ";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(191, 48);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(121, 21);
-            this.checkBox2.TabIndex = 12;
-            this.checkBox2.Text = "И ещё способ";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(191, 77);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(126, 21);
-            this.checkBox3.TabIndex = 13;
-            this.checkBox3.Text = "Ну и ещё один";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.fixedPointCheckBox.AutoSize = true;
+            this.fixedPointCheckBox.Location = new System.Drawing.Point(191, 8);
+            this.fixedPointCheckBox.Name = "fixedPointCheckBox";
+            this.fixedPointCheckBox.Size = new System.Drawing.Size(130, 38);
+            this.fixedPointCheckBox.TabIndex = 11;
+            this.fixedPointCheckBox.Text = "Метод простых\r\nитераций\r\n";
+            this.fixedPointCheckBox.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -220,12 +198,10 @@ namespace WSolver
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.secantCheckBox);
-            this.panel4.Controls.Add(this.checkBox3);
+            this.panel4.Controls.Add(this.chordCheckBox);
             this.panel4.Controls.Add(this.NewtonCheckBox);
-            this.panel4.Controls.Add(this.checkBox2);
             this.panel4.Controls.Add(this.smallSegmentsCheckBox);
-            this.panel4.Controls.Add(this.checkBox1);
+            this.panel4.Controls.Add(this.fixedPointCheckBox);
             this.panel4.Controls.Add(this.checkBoxDichotomy);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 0);
@@ -265,10 +241,8 @@ namespace WSolver
         private System.Windows.Forms.CheckBox checkBoxCloseRoots;
         private System.Windows.Forms.CheckBox smallSegmentsCheckBox;
         private System.Windows.Forms.CheckBox NewtonCheckBox;
-        private System.Windows.Forms.CheckBox secantCheckBox;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox chordCheckBox;
+        private System.Windows.Forms.CheckBox fixedPointCheckBox;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel3;

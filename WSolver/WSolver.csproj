@@ -54,8 +54,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chords.cs" />
     <Compile Include="Dichotomy.cs" />
     <Compile Include="Exceptions.cs" />
+    <Compile Include="FixedPoint.cs" />
     <Compile Include="FParser.cs" />
     <Compile Include="FuncConstructor.cs" />
     <Compile Include="InputForm.cs">
@@ -65,6 +67,7 @@
       <DependentUpon>InputForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Newton.cs" />
+    <Compile Include="Period.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootsOutput.cs">
@@ -73,7 +76,6 @@
     <Compile Include="RootsOutput.Designer.cs">
       <DependentUpon>RootsOutput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Secant.cs" />
     <Compile Include="SmallSegments.cs" />
     <Compile Include="Solver.cs" />
     <EmbeddedResource Include="InputForm.resx">

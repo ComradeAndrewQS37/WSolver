@@ -17,6 +17,8 @@ namespace WSolver
         static List<double> Roots = new List<double>();
         public static List<double> MainSolver(Func<double, double> f)
         {
+            DateTime startTime = DateTime.Now;
+            
             Roots = new List<double>();
 
             System.Random rand = new Random();
@@ -29,8 +31,19 @@ namespace WSolver
 
             for (int i = 0; i < searchSegment / segmentLength; i++)
             {
+                // end execution if method freezes
+                double passedSeconds = (DateTime.Now - startTime).TotalSeconds;
+                if (passedSeconds > 10)
+                {
+                    return Roots;
+                }
+
                 a = begin + i * segmentLength;
                 b = a + segmentLength;
+
+                // going to new segment if this has no roots
+                if (!AreRootsOnThisSegment(f, a, b)) { continue; }
+
                 while (b - a > eps)
                 {
                     if (f(a) * f((a + b) / 2) <= 0)
@@ -61,10 +74,15 @@ namespace WSolver
 
         static bool CheckRoot(Func<double, double> f, double x)
         {
-            double eps = 0.00000001;
+            double eps = 0.0000001;
             bool isRoot = Math.Abs(f(x)) < eps;
             return isRoot;
         }
-        
+        static bool AreRootsOnThisSegment(Func<double, double> f, double a, double b)
+        {
+            if (f(a) * f(b) > 0 && (f(a) + 0.001) * (f(b) + 0.001) > 0 && (f(a) - 0.001) * (f(b) - 0.001) > 0) { return false; }
+
+            return true;
+        }
     }
 }

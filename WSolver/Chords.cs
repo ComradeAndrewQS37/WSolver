@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 namespace WSolver
 {
     /*
-     * Method uses tangent lines to approximate the root
-     * 1) Start point x_0 is segment's centre
-     * 2) Every new tangent line is for point (x_n, f(x_n)), where x_n is current approximation
-     *    this tangent's intersection with x-axis is new approximation x_(n+1)
+     * Method uses chords to approximate the root
+     * 1) Start point x_0 is segment's right point b
+     * 2) Every new chord is between points (a, f(a)) and (x_n, f(x_n))
+     *    this chord's intersection with x-axis is new approximation x_(n+1)
      * 3) Continue until |x_n - x_(n+1)| > eps
      */
-    class Newton
+    class Chords
     {
         // all found roots
         static List<double> Roots = new List<double>();
+
         public static List<double> MainSolver(Func<double, double> f)
         {
             DateTime startTime = DateTime.Now;
@@ -27,9 +28,10 @@ namespace WSolver
             double begin = -rand.Next(500, 1000), end = rand.Next(500, 1000);
             double searchSegment = end - begin;
 
-            const double eps = 0.0000001; // roots precision 
+            const double eps = 0.000000001; // roots precision 
             const double segmentLength = 0.01;
             double a, b;
+
             for (int i = 0; i < searchSegment / segmentLength; i++)
             {
                 // end execution if method freezes
@@ -43,18 +45,18 @@ namespace WSolver
                 b = a + segmentLength;
 
                 // going to new segment if this has no roots
-                if (!AreRootsOnThisSegment(f, a, b)) { continue;}
+                if (!AreRootsOnThisSegment(f, a, b)) { continue; }
 
                 // start point
-                double x_0 = (a + b) / 2;
+                double x_0 = b;
 
                 // first approximation
-                double x_n = x_0 - f(x_0) / FirstDerivative(f, x_0);
+                double x_n = x_0 - f(x_0) / (f(x_0) - f(a)) * (x_0 - a);
 
                 while (Math.Abs(x_n - x_0) > eps)
                 {
                     x_0 = x_n;
-                    x_n = x_0 - f(x_0) / FirstDerivative(f, x_0);
+                    x_n = x_0 - f(x_0) / (f(x_0) - f(a)) * (x_0 - a);
                 }
 
                 double newRoot = x_n;
@@ -67,27 +69,19 @@ namespace WSolver
             }
             return Roots;
         }
+        
 
         static bool CheckRoot(Func<double, double> f, double x)
         {
-            double eps = 0.00001;
+            double eps = 0.0000001;
             bool isRoot = Math.Abs(f(x)) < eps;
             return isRoot;
         }
-
-        static double FirstDerivative(Func<double, double> f, double x)
-        {
-            double h = 0.0001;
-            return (f(x + h) - f(x - h)) / (2 * h);
-        }
-
         static bool AreRootsOnThisSegment(Func<double, double> f, double a, double b)
         {
-            if (f(a) * f(b) > 0 && (f(a)+0.001) * (f(b)+0.001) > 0 && (f(a) - 0.001) * (f(b) - 0.001) > 0) { return false; }
+            if (f(a) * f(b) > 0 && (f(a) + 0.001) * (f(b) + 0.001) > 0 && (f(a) - 0.001) * (f(b) - 0.001) > 0) { return false; }
 
             return true;
         }
-       
     }
 }
-

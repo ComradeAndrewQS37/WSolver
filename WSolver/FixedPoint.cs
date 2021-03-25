@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace WSolver
 {
+    /*
+     * Method replaces equation f(x) = 0 with g(x) = x
+     * 1) The most obvious (and universal) g(x) = f(x) + x
+     * 2) First root approximation is segment centre
+     * 3) Every new approximation x_(n+1) = g(x_n) = f(x_n) + x_n
+     * 3) Continue until |x_n - x_(n+1)| > eps
+     * Important: approximations sequence converges to root only if |f'(x)| < 1 in root neighborhood
+     */
     class FixedPoint
     {
         // all found roots
@@ -21,7 +29,7 @@ namespace WSolver
             double begin = -rand.Next(500, 1000), end = rand.Next(500, 1000);
             double searchSegment = end - begin;
 
-            const double eps = 0.0000001; // roots precision 
+            const double eps = 0.0000000001; // roots precision 
             const double segmentLength = 0.01;
             double a, b;
 
@@ -40,20 +48,24 @@ namespace WSolver
                 b = a + segmentLength;
 
 
-                double c = 2/(Math.Round(FirstDerivative(f, (a+b)/2) +1) + Math.Round(FirstDerivative(f, (a + b) / 2) - 1));
+                if (Math.Abs(FirstDerivative(f, (a + b) / 2)) > 1)
+                {
+                    continue;
+                }
+
 
                 // start point
                 double x_0 = (a + b) / 2;
 
                 // first approximation
-                double x_n = x_0 + c * f(x_0);
+                double x_n = x_0 + f(x_0);
+                
 
-                int j = 0;
                 while (Math.Abs(x_n - x_0) > eps)
                 {
                     x_0 = x_n;
-                    x_n = x_0 + c * f(x_0);
-                    if (j++ > 200)
+                    x_n = x_0 + f(x_0);
+                    if (x_n > b || x_n < a)
                     {
                         break;
                     }
@@ -73,7 +85,7 @@ namespace WSolver
         
         static bool CheckRoot(Func<double, double> f, double x)
         {
-            double eps = 0.00001;
+            double eps = 0.00000001;
             bool isRoot = Math.Abs(f(x)) < eps;
             return isRoot;
         }

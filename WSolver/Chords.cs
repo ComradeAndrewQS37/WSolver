@@ -57,6 +57,11 @@ namespace WSolver
                 {
                     x_0 = x_n;
                     x_n = x_0 - f(x_0) / (f(x_0) - f(a)) * (x_0 - a);
+
+                    if (x_n > b || x_n < a)
+                    {
+                        break;
+                    }
                 }
 
                 double newRoot = x_n;

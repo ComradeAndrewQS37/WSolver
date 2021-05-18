@@ -128,7 +128,7 @@ namespace WSolver
             {
                 try
                 {
-                    return (x) => (Convert.ToDouble(l.Replace(".", ",")));
+                    return (x) => Convert.ToDouble(l.Replace(".", ","));
                 }
                 catch (InvalidCastException)
                 {

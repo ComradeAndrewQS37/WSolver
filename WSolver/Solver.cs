@@ -12,6 +12,7 @@ namespace WSolver
     // this class takes info from InputForm and manages solution and passing roots to RootsOutput form
     class Solver
     {
+        
         // save all opened windows with roots output to close them all if necessary
         private static List<Form> openedRootsWindows = new List<Form>();
 

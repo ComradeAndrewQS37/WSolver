@@ -49,6 +49,11 @@ namespace WSolver
             // manages all solution processes
             Solver.SolutionManager(formula, usedVariable, closeAll, methodsCheckDictionary);
         }
-        
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            SettingsForm rootsOutput = new SettingsForm();
+            rootsOutput.Show();
+        }
     }
 }

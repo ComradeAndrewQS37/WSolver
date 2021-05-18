@@ -26,10 +26,10 @@ namespace WSolver
             Roots = new List<double>();
 
             System.Random rand = new Random();
-            double begin = -rand.Next(500, 1000), end = rand.Next(500, 1000);
+            double begin = SettingsForm.LeftBorder, end = SettingsForm.RightBorder;
             double searchSegment = end - begin;
 
-            const double eps = 0.0000000001; // roots precision 
+            double eps = Math.Pow(0.1, SettingsForm.RootsPrecision); // roots precision 
             const double segmentLength = 0.01;
             double a, b;
 
@@ -43,7 +43,6 @@ namespace WSolver
                     return Roots;
                 }
 
-                
                 a = begin + i * segmentLength;
                 b = a + segmentLength;
 
@@ -52,15 +51,13 @@ namespace WSolver
                 {
                     continue;
                 }
-
-
+                
                 // start point
                 double x_0 = (a + b) / 2;
 
                 // first approximation
                 double x_n = x_0 + f(x_0);
                 
-
                 while (Math.Abs(x_n - x_0) > eps)
                 {
                     x_0 = x_n;
@@ -72,11 +69,10 @@ namespace WSolver
                 }
 
                 double newRoot = x_n;
-
-
-                if (CheckRoot(f, newRoot) && !Roots.Contains(Math.Round(newRoot, 2)))
+                
+                if (CheckRoot(f, newRoot) && !Roots.Contains(Math.Round(newRoot, SettingsForm.OutputPrecision)))
                 {
-                    Roots.Add(Math.Round(newRoot, 2));
+                    Roots.Add(Math.Round(newRoot, SettingsForm.OutputPrecision));
                 }
 
             }
@@ -85,7 +81,7 @@ namespace WSolver
         
         static bool CheckRoot(Func<double, double> f, double x)
         {
-            double eps = 0.00000001;
+            double eps = Math.Pow(10, SettingsForm.RootsPrecision + 3);
             bool isRoot = Math.Abs(f(x)) < eps;
             return isRoot;
         }

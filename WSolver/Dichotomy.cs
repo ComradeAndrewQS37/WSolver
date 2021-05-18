@@ -18,13 +18,14 @@ namespace WSolver
         public static List<double> MainSolver(Func<double, double> f)
         {
             DateTime startTime = DateTime.Now;
-            
+            System.Random rand = new Random();
+
+
             roots = new List<double>();
 
-            System.Random rand = new Random();
-            double aDefault = -rand.Next(200,500), bDefault = rand.Next(200, 500);
+            double aDefault = SettingsForm.LeftBorder, bDefault = SettingsForm.RightBorder;
             double a, b;
-            const double eps = 0.00000001; // roots precision 
+            double eps = Math.Pow(0.1, SettingsForm.RootsPrecision); // roots precision 
             // number of algorithm mistakes (criteria for end of work)
             int badRootAmount = 0;
             while (true)
@@ -66,16 +67,17 @@ namespace WSolver
 
                 double newRoot = (a + b) / 2;
 
-                if (CheckRoot(f, newRoot) && !roots.Contains(Math.Round(newRoot, 2)))
+                if (CheckRoot(f, newRoot) && !roots.Contains(Math.Round(newRoot, SettingsForm.OutputPrecision)))
                 {
                     //badRootAmount = 0;
-                    roots.Add(Math.Round(newRoot,2));
+                    roots.Add(Math.Round(newRoot, SettingsForm.OutputPrecision));
                     // new function f(x):=f(x)/(x-x_0)
                     f = FunctionModifier(f, newRoot);
                 }
                 else
                 {
                     badRootAmount++;
+
 
                     aDefault -= rand.Next(100, 500);
                     bDefault += rand.Next(100, 500);
@@ -91,7 +93,7 @@ namespace WSolver
 
         private static bool CheckRoot(Func<double, double> f, double x)
         {
-            const double eps = 0.00001;
+            double eps = Math.Pow(10, SettingsForm.RootsPrecision + 3);
             bool isRoot = Math.Abs(f(x)) < eps;
             return isRoot;
         }
